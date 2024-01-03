@@ -14,15 +14,14 @@ const Navigation = () => {
   const { userData } = useContext(UserDataContext);
   const navigate = useNavigate();
   const signout = async () => {
-    await signOut(auth)
-      .then(() => {
-        localStorage.removeItem("uid");
-        localStorage.removeItem("userName");
-        navigate("/page2/login");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      await signOut(auth);
+      localStorage.removeItem("uid");
+      localStorage.removeItem("userName");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
   };
 
   const items = [
@@ -52,7 +51,11 @@ const Navigation = () => {
               }}
             />
           )}
-          <span>Abdul Rehman</span>
+          <span
+            style={{ fontSize: "16px", fontWeight: "bold", marginTop: "5px" }}
+          >
+            {userData.FullName}
+          </span>
         </div>
       ),
       key: "0",
@@ -129,6 +132,7 @@ const Navigation = () => {
             height: 40,
             borderRadius: "50px",
             marginRight: 20,
+            cursor: "pointer",
           }}
         />
       ) : (

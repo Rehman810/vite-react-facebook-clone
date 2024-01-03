@@ -22,60 +22,32 @@ const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
-    const fetchAllUsersPosts = () => {
-      try {
-        const usersCollectionRef = collection(db, "personal-info");
-        const unsubscribeUsers = onSnapshot(
-          usersCollectionRef,
-          (querySnapshot) => {
-            const allUsersPostsData = [];
+    const currentUserId = localStorage.getItem("uid");
+    const userPostsCollectionRef = collection(
+      db,
+      "personal-info",
+      currentUserId,
+      "posts"
+    );
+    const queryForPosts = query(
+      userPostsCollectionRef,
+      orderBy("timestamp", "desc")
+    );
 
-            querySnapshot.forEach((userDoc) => {
-              const userId = userDoc.id;
-              const userPostsCollectionRef = collection(
-                db,
-                "personal-info",
-                userId,
-                "posts"
-              );
-              const userQueryForPosts = query(
-                userPostsCollectionRef,
-                orderBy("timestamp", "desc")
-              );
+    const unsubscribe = onSnapshot(queryForPosts, (querySnapshot) => {
+      const posts = [];
+      querySnapshot.forEach((doc) => {
+        posts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setUserPosts(posts);
+    });
 
-              const unsubscribePosts = onSnapshot(
-                userQueryForPosts,
-                (userQuerySnapshot) => {
-                  userQuerySnapshot.forEach((postDoc) => {
-                    allUsersPostsData.push({
-                      userId,
-                      postId: postDoc.id,
-                      ...postDoc.data(),
-                    });
-                  });
-
-                  // Sort all posts based on timestamp in descending order
-                  allUsersPostsData.sort(
-                    (a, b) => b.timestamp.toMillis() - a.timestamp.toMillis()
-                  );
-
-                  // Update state with the sorted posts from all users
-                  setUserPosts(allUsersPostsData);
-                }
-              );
-            });
-          }
-        );
-
-        return () => {
-          unsubscribeUsers();
-        };
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
+    return () => {
+      unsubscribe();
     };
-
-    fetchAllUsersPosts();
   }, []);
 
   return (
@@ -127,7 +99,7 @@ const TextPost = () => {
               </div>
             </div>
             <div>
-              {/* <BiDotsHorizontalRounded className="post-head-icon" size={20} /> */}
+              <BiDotsHorizontalRounded className="post-head-icon" size={20} />
               <RxCross2 className="post-head-icon" size={20} />
             </div>
           </div>

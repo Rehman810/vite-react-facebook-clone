@@ -17,27 +17,29 @@ const Login = () => {
   const [password, setPassword] = useState();
 
   const Login = async () => {
-    return await signInWithEmailAndPassword(auth, email, password)
-      .then((e) => {
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            console.log("user found", e.user.uid);
-            localStorage.setItem("uid", e.user.uid);
-            navigate("/page1/");
-          } else {
-            console.log("user not found", user.uid);
-          }
-        });
-      })
-      .catch((error) => {
-        // Swal.fire({
-        //   icon: "error",
-        //   title: "Try Again",
-        //   text: "Wrong email or password!",
-        // });
-        console.log(error);
+    try {
+      const e = await signInWithEmailAndPassword(auth, email, password);
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("User found", e.user.uid);
+          localStorage.setItem("uid", e.user.uid);
+          navigate("/");
+        } else {
+          console.log("User not found");
+        }
       });
+    } catch (error) {
+      // Handle errors here
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Try Again",
+      //   text: "Wrong email or password!",
+      // });
+      console.error(error);
+    }
   };
+
   return (
     <div className="login">
       <img src={Facebook} alt="facebook" className="facebook" />

@@ -15,7 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const Home = () => {
-    navigate("/page1/");
+    navigate("/");
   };
   return (
     <div
@@ -25,11 +25,14 @@ const Navbar = () => {
         display: "flex",
         justifyContent: "space-between",
         width: "100%",
-        marginTop: 0,
+        margin: 0,
+        padding: 0,
         backgroundColor: "white",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
         height: "50px",
         position: "fixed",
+        top: 0,
+        left: 0,
         zIndex: 20,
       }}
     >

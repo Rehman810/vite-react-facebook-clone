@@ -17,24 +17,24 @@ function App() {
 
   return (
     <div className="App">
-      {/* <UserDataProvider> */}
-      <BrowserRouter>
-        <Routes>
-          <>
-            {/* <Route
-              // path={`/profilePage/:${userData.uid}`}
-              path="/profilePage"
-              element={<Protected Component={Profile} />}
-            />
-            <Route path="/" element={<Protected Component={Home} />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} /> */}
-            <Route index path="/page1/*" element={<UsesPages />} />
-            <Route path="/page2/*" element={<NonUserPages />} />
-          </>
-        </Routes>
-      </BrowserRouter>
-      {/* </UserDataProvider> */}
+      <UserDataProvider>
+        <BrowserRouter>
+          <Routes>
+            <>
+              <Route
+                // path={`/profilePage/:${userData.uid}`}
+                path="/profilePage"
+                element={<Protected Component={Profile} />}
+              />
+              <Route path="/" element={<Protected Component={Home} />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              {/* <Route index path="/page1/*" element={<UsesPages />} />
+            <Route path="/page2/*" element={<NonUserPages />} /> */}
+            </>
+          </Routes>
+        </BrowserRouter>
+      </UserDataProvider>
     </div>
   );
 }

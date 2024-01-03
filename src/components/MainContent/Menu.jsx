@@ -14,7 +14,7 @@ const Menu = () => {
   const { userData } = useContext(UserDataContext);
 
   const ProfilePage = () => {
-    navigate("/page1/profilePage");
+    navigate("/profilePage");
   };
 
   return (
