@@ -10,7 +10,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 const AddPhotoswithText = () => {
   const { userData } = useContext(UserDataContext);
-  const [postText, setPostText] = useState();
+  const [postText, setPostText] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
@@ -59,59 +59,59 @@ const AddPhotoswithText = () => {
 
   const date = `${month} ${day}, ${year}`;
   const Post = async () => {
-    if (postText.trim() !== "") {
-      try {
-        const currentUserId = auth.currentUser.uid;
+    try {
+      const currentUserId = auth.currentUser.uid;
 
-        const userPostsCollectionRef = collection(
-          db,
-          "personal-info",
-          currentUserId,
-          "posts"
-        );
+      const userPostsCollectionRef = collection(
+        db,
+        "personal-info",
+        currentUserId,
+        "posts"
+      );
 
-        //////////////////////////////////
-        const photoName = userData.FullName;
+      //////////////////////////////////
+      // const photoName = userData.FullName;
+      const randomNumber = Math.floor(Math.random() * 1000);
+      const photoName = randomNumber.toString();
 
-        if (!file) {
-          return;
-        }
-
-        const name = photoName;
-
-        try {
-          const storageRef = ref(storage, name + "_" + date);
-
-          const uploadTask = uploadBytesResumable(storageRef, file);
-          uploadTask.on(
-            "state_changed",
-            null,
-            (error) => {
-              console.error("Error uploading file:", error);
-            },
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref).then(
-                async (downloadURL) => {
-                  const newPostRef = await addDoc(userPostsCollectionRef, {
-                    text: postText,
-                    date: date,
-                    postURL: downloadURL,
-                    timestamp: serverTimestamp(),
-                  });
-                }
-              );
-            }
-          );
-        } catch (e) {
-          console.error("Error uploading file:", e);
-        }
-
-        //////////////////////////////
-      } catch (e) {
-        console.error("Error adding document: ", e);
+      if (!file) {
+        return;
       }
-      setPostText("");
+
+      const name = photoName;
+
+      try {
+        const storageRef = ref(storage, name + "_" + date);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        uploadTask.on(
+          "state_changed",
+          null,
+          (error) => {
+            console.error("Error uploading file:", error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                const newPostRef = await addDoc(userPostsCollectionRef, {
+                  text: postText,
+                  date: date,
+                  postURL: downloadURL,
+                  name: userData.FullName,
+                  photoURL: userData.photoURL,
+                  timestamp: serverTimestamp(),
+                });
+              }
+            );
+          }
+        );
+      } catch (e) {
+        console.error("Error uploading file:", e);
+      }
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
+    setPostText("");
   };
   return (
     <div>

@@ -4,7 +4,14 @@ import { Modal } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../../firebase";
-import { addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import { UserDataContext } from "../../../Context/Context";
 
 const Picture = () => {
@@ -29,11 +36,9 @@ const Picture = () => {
     const name = photoName;
 
     try {
-      // Generate a timestamp for the file name
       const date = new Date().getTime();
       const storageRef = ref(storage, name + "_" + date);
 
-      // Upload the selected file to Firebase Storage
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         "state_changed",
@@ -53,6 +58,28 @@ const Picture = () => {
                 },
                 { merge: true }
               );
+              const newPhotoURL = downloadURL;
+
+              const userPostsRef = collection(
+                db,
+                "personal-info",
+                uid,
+                "posts"
+              );
+
+              const querySnapshot = await getDocs(userPostsRef);
+
+              querySnapshot.forEach(async (doc) => {
+                const postRef = doc.ref;
+                await setDoc(
+                  postRef,
+                  {
+                    photoURL: newPhotoURL,
+                  },
+                  { merge: true }
+                );
+              });
+
               console.log("Document field updated successfully!");
             } catch (error) {
               console.error("Error updating document field:", error);

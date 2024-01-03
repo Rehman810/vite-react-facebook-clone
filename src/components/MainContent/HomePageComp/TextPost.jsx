@@ -8,7 +8,13 @@ import { FaRegComment } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
 import { PiShareFatThin } from "react-icons/pi";
 import { UserDataContext } from "../../../Context/Context";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDocs,
+} from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 
 const TextPost = () => {
@@ -16,38 +22,69 @@ const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
-    const currentUserId = localStorage.getItem("uid");
-    const userPostsCollectionRef = collection(
-      db,
-      "personal-info",
-      currentUserId,
-      "posts"
-    );
-    const queryForPosts = query(
-      userPostsCollectionRef,
-      orderBy("timestamp", "desc")
-    );
+    const fetchAllUsersPosts = () => {
+      try {
+        const usersCollectionRef = collection(db, "personal-info");
+        const unsubscribeUsers = onSnapshot(
+          usersCollectionRef,
+          (querySnapshot) => {
+            const allUsersPostsData = [];
 
-    const unsubscribe = onSnapshot(queryForPosts, (querySnapshot) => {
-      const posts = [];
-      querySnapshot.forEach((doc) => {
-        posts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setUserPosts(posts);
-    });
+            querySnapshot.forEach((userDoc) => {
+              const userId = userDoc.id;
+              const userPostsCollectionRef = collection(
+                db,
+                "personal-info",
+                userId,
+                "posts"
+              );
+              const userQueryForPosts = query(
+                userPostsCollectionRef,
+                orderBy("timestamp", "desc")
+              );
 
-    return () => {
-      unsubscribe();
+              const unsubscribePosts = onSnapshot(
+                userQueryForPosts,
+                (userQuerySnapshot) => {
+                  const userPosts = [];
+                  userQuerySnapshot.forEach((postDoc) => {
+                    userPosts.push({
+                      userId,
+                      postId: postDoc.id,
+                      ...postDoc.data(),
+                    });
+                  });
+
+                  // Update state with the posts of the current user
+                  setUserPosts((prevData) => {
+                    // Filter out previous data for the current user
+                    const newData = prevData.filter(
+                      (post) => post.userId !== userId
+                    );
+                    // Concatenate the new posts for the current user
+                    return newData.concat(userPosts);
+                  });
+                }
+              );
+            });
+          }
+        );
+
+        return () => {
+          unsubscribeUsers();
+        };
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     };
+
+    fetchAllUsersPosts();
   }, []);
 
   return (
     <>
       {userPosts.map((a, index) => (
-        <div className="Post" key={a.id}>
+        <div className="Post" key={index}>
           <div className="post-head">
             <div
               style={{
@@ -56,7 +93,7 @@ const TextPost = () => {
                 alignItems: "center",
               }}
             >
-              {userData.photoURL ? (
+              {a.photoURL ? (
                 <img
                   style={{
                     width: 40,
@@ -65,7 +102,7 @@ const TextPost = () => {
                     marginLeft: 10,
                     marginRight: 20,
                   }}
-                  src={userData.photoURL}
+                  src={a.photoURL}
                   alt="profile"
                 />
               ) : (
@@ -88,9 +125,7 @@ const TextPost = () => {
                   alignItems: "flex-start",
                 }}
               >
-                <span style={{ marginTop: "5px", fontSize: 18 }}>
-                  {userData.FullName}
-                </span>
+                <span style={{ marginTop: "5px", fontSize: 18 }}>{a.name}</span>
                 <p style={{ fontSize: 11, marginTop: "-1px" }}>{a.date}</p>
               </div>
             </div>

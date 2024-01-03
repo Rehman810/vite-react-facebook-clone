@@ -74,6 +74,8 @@ const WritePost = () => {
         const newPostRef = await addDoc(userPostsCollectionRef, {
           text: postText,
           date: date,
+          name: userData.FullName,
+          photoURL: userData.photoURL,
           timestamp: serverTimestamp(),
         });
       } catch (e) {
