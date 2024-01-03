@@ -5,16 +5,9 @@ import SignUp from "./components/LoginOrSignUp/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Protected from "./Protected";
 import Profile from "./components/MainContent/ProfilePage/Profile";
-import { auth, db } from "./firebase";
-import { doc, onSnapshot } from "firebase/firestore";
-import { useEffect, useContext } from "react";
-import { UserDataContext, UserDataProvider } from "./Context/Context";
-import UsesPages from "./Pages/UsesPages";
-import NonUserPages from "./Pages/NonUserPages";
+import { UserDataProvider } from "./Context/Context";
 
 function App() {
-  const userData = useContext(UserDataContext);
-
   return (
     <div className="App">
       <UserDataProvider>
