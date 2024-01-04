@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import Profile from "../../../assets/blank-profile.png";
-import Posts from "../../../assets/story.png";
 import { AiTwotoneLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
@@ -15,11 +14,13 @@ import {
   onSnapshot,
   getDocs,
 } from "firebase/firestore";
-import { auth, db } from "../../../firebase";
+import { db } from "../../../firebase";
+import { Skeleton, Spin } from "antd";
 
 const TextPost = () => {
   const { userData } = useContext(UserDataContext);
   const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const currentUserId = localStorage.getItem("uid");
@@ -43,6 +44,7 @@ const TextPost = () => {
         });
       });
       setUserPosts(posts);
+      setLoading(false);
     });
 
     return () => {
@@ -103,9 +105,11 @@ const TextPost = () => {
               <RxCross2 className="post-head-icon" size={20} />
             </div>
           </div>
-          <p>{a.text}</p>
+          {loading ? <Skeleton active /> : <p>{a.text}</p>}
           {/* {console.log(a.postURL)} */}
-          {a.postURL ? (
+          {loading ? (
+            <Skeleton.Image active />
+          ) : a.postURL ? (
             <div>
               <img
                 src={`${a.postURL}?cache=${Math.random()}`}

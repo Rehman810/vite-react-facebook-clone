@@ -87,21 +87,35 @@ const WritePost = () => {
   return (
     <div className="write-post">
       <div className="Write">
-        {userData.photoURL ? (
-          <img
-            src={userData.photoURL}
-            alt="profile"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: "50px",
-              marginLeft: 10,
-              marginRight: 20,
-            }}
-          />
+        {userData ? (
+          userData.photoURL ? (
+            <img
+              src={userData.photoURL}
+              alt="profile"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50px",
+                marginLeft: 10,
+                marginRight: 20,
+              }}
+            />
+          ) : (
+            <img
+              src={Profile}
+              alt="profile"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50px",
+                marginLeft: 10,
+                marginRight: 20,
+              }}
+            />
+          )
         ) : (
           <img
-            src={Profile}
+            src={localStorage.getItem("photoURL")}
             alt="profile"
             style={{
               width: 40,
@@ -118,7 +132,9 @@ const WritePost = () => {
             type="text"
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
-            placeholder={`What's on your mind, ${userData.FullName}?`}
+            placeholder={`What's on your mind, ${
+              userData ? userData.FullName : localStorage.getItem("userName")
+            }?`}
           />
         </div>
 
@@ -140,20 +156,33 @@ const WritePost = () => {
         >
           <div style={{ height: "15vw" }}>
             <div className="sidebar">
-              {userData.photoURL ? (
-                <img
-                  src={userData.photoURL}
-                  alt="profile"
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50px",
-                    marginRight: 20,
-                  }}
-                />
+              {userData ? (
+                userData.photoURL ? (
+                  <img
+                    src={userData.photoURL}
+                    alt="profile"
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "50px",
+                      marginRight: 20,
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={Profile}
+                    alt="profile"
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "50px",
+                      marginRight: 20,
+                    }}
+                  />
+                )
               ) : (
                 <img
-                  src={Profile}
+                  src={localStorage.getItem("photoURL")}
                   alt="profile"
                   style={{
                     width: 40,
@@ -163,12 +192,18 @@ const WritePost = () => {
                   }}
                 />
               )}
-              <span style={{ fontWeight: "bold" }}>{userData.FullName}</span>
+              <span style={{ fontWeight: "bold" }}>
+                {userData
+                  ? userData.FullName
+                  : localStorage.getItem("userName")}
+              </span>
             </div>
             <input
               type="text"
               className="post-inp"
-              placeholder={`What's on your mind, ${userData.FullName}?`}
+              placeholder={`What's on your mind, ${
+                userData ? userData.FullName : localStorage.getItem("userName")
+              }?`}
               onChange={(e) => setPostText(e.target.value)}
             />
           </div>

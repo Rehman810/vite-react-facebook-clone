@@ -105,17 +105,26 @@ const Picture = () => {
   return (
     <div>
       <div>
-        {userData.photoURL ? (
-          <img
-            onClick={showModal}
-            src={userData.photoURL}
-            alt="profile-img"
-            className="profilePageImg"
-          />
+        {userData ? (
+          userData.photoURL ? (
+            <img
+              onClick={showModal}
+              src={userData.photoURL}
+              alt="profile-img"
+              className="profilePageImg"
+            />
+          ) : (
+            <img
+              onClick={showModal}
+              src={ProfileImg}
+              alt="profile-img"
+              className="profilePageImg"
+            />
+          )
         ) : (
           <img
             onClick={showModal}
-            src={ProfileImg}
+            src={localStorage.getItem("photoURL")}
             alt="profile-img"
             className="profilePageImg"
           />

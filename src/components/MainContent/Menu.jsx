@@ -24,7 +24,6 @@ const Menu = () => {
 
   return (
     <>
-      {" "}
       <LoadingBar
         color="blue"
         progress={progress}

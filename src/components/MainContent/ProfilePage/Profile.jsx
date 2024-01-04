@@ -43,7 +43,7 @@ const Profile = () => {
                 fontWeight: "bold",
               }}
             >
-              {userData.FullName}
+              {userData ? userData.FullName : localStorage.getItem("userName")}
             </span>
           </div>
           <div

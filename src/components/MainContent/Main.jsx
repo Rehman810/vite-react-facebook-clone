@@ -20,6 +20,7 @@ const Main = () => {
           const data = docSnapshot.data();
           setUserData(data);
           localStorage.setItem("userName", data.FullName);
+          localStorage.setItem("photoURL", data.photoURL);
         } else {
           console.log("No such document!");
         }

@@ -22,6 +22,7 @@ const Navigation = () => {
       await signOut(auth);
       localStorage.removeItem("uid");
       localStorage.removeItem("userName");
+      localStorage.removeItem("photoURL");
       setProgress(100);
       setTimeout(() => {
         navigate("/login");
@@ -137,21 +138,34 @@ const Navigation = () => {
         }}
         trigger={["click"]}
       >
-        {userData.photoURL ? (
-          <img
-            src={userData.photoURL}
-            alt="profile"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: "50px",
-              marginRight: 20,
-              cursor: "pointer",
-            }}
-          />
+        {userData ? (
+          userData.photoURL ? (
+            <img
+              src={userData.photoURL}
+              alt="profile"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50px",
+                marginRight: 20,
+                cursor: "pointer",
+              }}
+            />
+          ) : (
+            <img
+              src={Profile}
+              alt="profile"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50px",
+                marginRight: 20,
+              }}
+            />
+          )
         ) : (
           <img
-            src={Profile}
+            src={localStorage.getItem("photoURL")}
             alt="profile"
             style={{
               width: 40,
