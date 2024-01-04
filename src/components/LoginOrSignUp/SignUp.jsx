@@ -14,6 +14,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
 const SignUp = () => {
   const [day, setDay] = useState("");
@@ -21,6 +22,7 @@ const SignUp = () => {
   const [year, setYear] = useState("");
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("");
+  const [progress, setProgress] = useState(0);
 
   const handleRadioChange = (e) => {
     setSelectedValue(e.target.value);
@@ -65,6 +67,7 @@ const SignUp = () => {
   const dateOfBirth = `${day} ${month}, ${year}`;
 
   const Signup = async () => {
+    setProgress(50);
     return await createUserWithEmailAndPassword(auth, email, password)
       .then((e) => {
         onAuthStateChanged(auth, async (user) => {
@@ -85,8 +88,12 @@ const SignUp = () => {
             } catch (e) {
               console.error("Error adding document: ", e);
             }
-            navigate("/page1/");
+            setProgress(100);
+            setTimeout(() => {
+              navigate("/page1/");
+            }, 200);
           } else {
+            setProgress(50);
             console.log("user not found", user.uid);
           }
         });
@@ -107,6 +114,11 @@ const SignUp = () => {
 
   return (
     <div className="login signup">
+      <LoadingBar
+        color="blue"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <img src={Facebook} alt="facebook" className="facebook" />
       <div className="login-box">
         <span style={{ fontSize: 30, fontWeight: "bold" }}>

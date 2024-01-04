@@ -22,8 +22,6 @@ function App() {
               <Route path="/" element={<Protected Component={Home} />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              {/* <Route index path="/page1/*" element={<UsesPages />} />
-            <Route path="/page2/*" element={<NonUserPages />} /> */}
             </>
           </Routes>
         </BrowserRouter>

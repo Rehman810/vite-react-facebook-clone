@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Search from "./Search";
 import Logo from "../../assets/logo.png";
 import { GoHomeFill } from "react-icons/go";
@@ -10,12 +10,17 @@ import { BiLogoMessenger } from "react-icons/bi";
 import { BsFillBellFill } from "react-icons/bs";
 import UserNavigation from "../ExtraComp/UserNavigation";
 import { useNavigate } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [progress, setProgress] = useState(0);
 
   const Home = () => {
-    navigate("/");
+    setProgress(100);
+    setTimeout(() => {
+      navigate("/");
+    }, 200);
   };
   return (
     <div
@@ -36,6 +41,11 @@ const Navbar = () => {
         zIndex: 20,
       }}
     >
+      <LoadingBar
+        color="blue"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <div
         style={{
           display: "flex",

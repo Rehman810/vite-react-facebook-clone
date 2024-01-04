@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { IoIosSettings, IoIosHelpCircle } from "react-icons/io";
 import { MdFeedback } from "react-icons/md";
 import { BsFillMoonFill } from "react-icons/bs";
@@ -9,17 +9,25 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { UserDataContext } from "../../Context/Context";
+import LoadingBar from "react-top-loading-bar";
 
 const Navigation = () => {
   const { userData } = useContext(UserDataContext);
+  const [progress, setProgress] = useState(0);
+
   const navigate = useNavigate();
   const signout = async () => {
     try {
+      setProgress(50);
       await signOut(auth);
       localStorage.removeItem("uid");
       localStorage.removeItem("userName");
-      navigate("/login");
+      setProgress(100);
+      setTimeout(() => {
+        navigate("/login");
+      }, 200);
     } catch (error) {
+      setProgress(50);
       console.error("Error signing out:", error.message);
     }
   };
@@ -117,37 +125,44 @@ const Navigation = () => {
     },
   ];
   return (
-    <Dropdown
-      menu={{
-        items,
-      }}
-      trigger={["click"]}
-    >
-      {userData.photoURL ? (
-        <img
-          src={userData.photoURL}
-          alt="profile"
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50px",
-            marginRight: 20,
-            cursor: "pointer",
-          }}
-        />
-      ) : (
-        <img
-          src={Profile}
-          alt="profile"
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50px",
-            marginRight: 20,
-          }}
-        />
-      )}
-    </Dropdown>
+    <>
+      <LoadingBar
+        color="blue"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      <Dropdown
+        menu={{
+          items,
+        }}
+        trigger={["click"]}
+      >
+        {userData.photoURL ? (
+          <img
+            src={userData.photoURL}
+            alt="profile"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50px",
+              marginRight: 20,
+              cursor: "pointer",
+            }}
+          />
+        ) : (
+          <img
+            src={Profile}
+            alt="profile"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50px",
+              marginRight: 20,
+            }}
+          />
+        )}
+      </Dropdown>
+    </>
   );
 };
 
