@@ -15,7 +15,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { Skeleton, Spin } from "antd";
+// import { Skeleton, Spin } from "antd";
+import Skeleton from "./Skeleton";
 
 const TextPost = () => {
   const { userData } = useContext(UserDataContext);
@@ -54,6 +55,7 @@ const TextPost = () => {
 
   return (
     <>
+      <Skeleton />
       {userPosts.map((a, index) => (
         <div className="Post" key={index}>
           <div className="post-head">
@@ -105,11 +107,9 @@ const TextPost = () => {
               <RxCross2 className="post-head-icon" size={20} />
             </div>
           </div>
-          {loading ? <Skeleton active /> : <p>{a.text}</p>}
+          <p>{a.text}</p>
           {/* {console.log(a.postURL)} */}
-          {loading ? (
-            <Skeleton.Image active />
-          ) : a.postURL ? (
+          {a.postURL ? (
             <div>
               <img
                 src={`${a.postURL}?cache=${Math.random()}`}
