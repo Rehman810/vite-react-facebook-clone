@@ -9,7 +9,7 @@ import { PiShareFatThin } from "react-icons/pi";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import SkeletonPage from "./Skeleton";
-import EditPost from "../../ExtraComp/EditPost";
+import EditPost from "../../OtherComponents/EditPost";
 import { UserDataContext } from "../../../Context/Context";
 import { Flex } from "antd";
 

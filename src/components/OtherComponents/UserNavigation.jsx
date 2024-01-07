@@ -10,6 +10,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { UserDataContext } from "../../Context/Context";
 import LoadingBar from "react-top-loading-bar";
+import "../Navbar/Navbar/Navbar.css";
 
 const Navigation = () => {
   const { userData } = useContext(UserDataContext);
@@ -140,39 +141,15 @@ const Navigation = () => {
       >
         {userData ? (
           userData.photoURL ? (
-            <img
-              src={userData.photoURL}
-              alt="profile"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50px",
-                marginRight: 20,
-                cursor: "pointer",
-              }}
-            />
+            <img src={userData.photoURL} alt="profile" className="nav-img" />
           ) : (
-            <img
-              src={Profile}
-              alt="profile"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50px",
-                marginRight: 20,
-              }}
-            />
+            <img className="nav-img" src={Profile} />
           )
         ) : (
           <img
             src={localStorage.getItem("photoURL")}
             alt="profile"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: "50px",
-              marginRight: 20,
-            }}
+            className="nav-img"
           />
         )}
       </Dropdown>

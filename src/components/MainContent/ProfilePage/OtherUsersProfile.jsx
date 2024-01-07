@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Banner from "../../../assets/story.png";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
-import Navbar from "../../Navbar/Navbar";
+import Navbar from "../../Navbar/Navbar/Navbar";
 import ProfileImg from "../../../assets/blank-profile.png";
 import WritePost from "../HomePageComp/WritePost";
 import Posts from "../HomePageComp/Posts";

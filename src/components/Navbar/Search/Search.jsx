@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import SearchIcon from "../../assets/search.svg";
-import { auth, db } from "../../firebase";
+import SearchIcon from "../../../assets/search.svg";
+import { db } from "../../../firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { UserDataContext } from "../../Context/Context";
+import { UserDataContext } from "../../../Context/Context";
 import { useNavigate } from "react-router-dom";
+import "./Search.css";
 
 const Search = () => {
   const { setOtherUserData } = useContext(UserDataContext);
@@ -21,14 +22,13 @@ const Search = () => {
         ...doc.data(),
         id: doc.id,
       }));
-      setUsers(newData); // Store all user data
+      setUsers(newData);
     });
   };
 
   const handleChange = (e) => {
     const query = e.target.value;
     const results = users.filter((user) => {
-      // Filter based on Full Name
       return user.FullName.toLowerCase().includes(query.toLowerCase());
     });
     setState({
@@ -48,9 +48,8 @@ const Search = () => {
 
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
-        console.log("User data: ", userData);
         setOtherUserData(userData);
-        navigate("/page1/otherProfile");
+        navigate("/otherProfile");
       } else {
         console.log("User not found");
       }
@@ -77,19 +76,7 @@ const Search = () => {
       >
         {state.query
           ? state.list.map((user, index) => (
-              <li
-                style={{
-                  fontSize: 18,
-                  color: "black",
-                  display: "flex",
-                  flexDirection: "row",
-                  textDecoration: "none",
-                  justifyContent: "flex-start",
-                  cursor: "pointer",
-                  padding: 12,
-                }}
-                key={index}
-              >
+              <li className="search-list" key={index}>
                 <div
                   onClick={() => {
                     OtherUserProfile(user.id);
