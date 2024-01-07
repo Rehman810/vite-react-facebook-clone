@@ -83,6 +83,7 @@ const SignUp = () => {
                 DOB: dateOfBirth,
                 Gender: selectedValue,
                 photoURL: "",
+                uid: e.user.uid,
                 DateofRegister: serverTimestamp(),
               });
             } catch (e) {
@@ -90,7 +91,7 @@ const SignUp = () => {
             }
             setProgress(100);
             setTimeout(() => {
-              navigate("/page1/");
+              navigate("/");
             }, 200);
           } else {
             setProgress(50);
@@ -109,7 +110,7 @@ const SignUp = () => {
   };
 
   const Login = () => {
-    navigate("/page2/login");
+    navigate("/login");
   };
 
   return (

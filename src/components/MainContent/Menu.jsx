@@ -18,7 +18,7 @@ const Menu = () => {
   const ProfilePage = () => {
     setProgress(100);
     setTimeout(() => {
-      navigate("/profilePage");
+      navigate(`/profilePage/:${userData.uid}`);
     }, 200);
   };
 

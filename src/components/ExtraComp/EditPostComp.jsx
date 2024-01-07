@@ -9,18 +9,13 @@ import { CiEdit } from "react-icons/ci";
 import { UserDataContext } from "../../Context/Context";
 
 function Edit(props) {
-  const { postId, postText, onUpdate } = useContext(UserDataContext);
+  const { postId, postText } = useContext(UserDataContext);
   const [postTextCo, setPostText] = useState(postText);
-  const [id, setId] = useState("");
-  const [rollNum, setRollNum] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleEdit = () => {
     setShow(true);
   };
-  useEffect(() => {
-    console.log(postTextCo, postId);
-  }, []);
   const uid = localStorage.getItem("uid");
   const handleSave = async (e) => {
     e.preventDefault();
@@ -34,20 +29,9 @@ function Edit(props) {
     try {
       await updateDoc(docRef, {
         text: postTextCo,
-        // photoURL: rollNum,
       });
       setShow(false);
       console.log("Document field updated successfully!");
-      // onSnapshot(docRef, (doc) => {
-      //   onUpdate((prevPosts) => {
-      //     const updatedPosts = prevPosts.map((post) =>
-      //       post.id === postId ? { ...post, text: postTextCo } : post
-      //     );
-      //     return updatedPosts;
-      //   });
-      //   setShow(false);
-      //   console.log("Document field updated successfully!");
-      // });
     } catch (error) {
       console.error("Error updating document field:", error);
     }
@@ -73,15 +57,6 @@ function Edit(props) {
                 onChange={(e) => setPostText(e.target.value)}
               />
             </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Roll Num</Form.Label>
-              <Form.Control
-                type="text"
-                autoFocus
-                value={rollNum}
-                onChange={(e) => setRollNum(e.target.value)}
-              />
-            </Form.Group> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>

@@ -11,7 +11,7 @@ const Main = () => {
   const { setUserData } = useContext(UserDataContext);
 
   useEffect(() => {
-    console.log("Current uid:", uid);
+    // console.log("Current uid:", uid);
     if (uid) {
       const userDocRef = doc(db, "personal-info", uid);
 

@@ -12,7 +12,7 @@ const Login = () => {
   const [progress, setProgress] = useState(0);
 
   const Signup = () => {
-    navigate("/page2/signup");
+    navigate("/signup");
   };
 
   const [email, setEmail] = useState();
