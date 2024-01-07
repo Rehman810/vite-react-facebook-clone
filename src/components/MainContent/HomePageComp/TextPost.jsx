@@ -47,9 +47,7 @@ const TextPost = () => {
                   });
 
                   // Sort all posts based on timestamp in descending order
-                  allUsersPostsData.sort(
-                    (a, b) => b.timestamp.toMillis() - a.timestamp.toMillis()
-                  );
+                  allUsersPostsData.sort((a, b) => b.timestamp - a.timestamp);
 
                   // Update state with the sorted posts from all users
                   setUserPosts(allUsersPostsData);

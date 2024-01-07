@@ -1,7 +1,7 @@
 import "./App.css";
 import Home from "./components/Home";
-import Login from "./components/LoginOrSignUp/Login";
-import SignUp from "./components/LoginOrSignUp/SignUp";
+import Login from "./components/LoginOrSignUp/Login/Login";
+import SignUp from "./components/LoginOrSignUp/SIgnUp/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Protected from "./Protected";
 import Profile from "./components/MainContent/ProfilePage/Profile";
@@ -16,21 +16,19 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <>
-            <Route
-              path={`/profilePage/:${userData.uid}`}
-              // path="/profilePage"
-              element={<Protected Component={Profile} />}
-            />
-            <Route
-              path="/otherProfile"
-              // path={`/otherProfile/:${userData.uid}`}
-              element={<Protected Component={OtherUserProfile} />}
-            />
-            <Route path="/" element={<Protected Component={Home} />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-          </>
+          <Route
+            path={`/profilePage/:${userData.uid}`}
+            // path="/profilePage"
+            element={<Protected Component={Profile} />}
+          />
+          <Route
+            path="/otherProfile"
+            // path={`/otherProfile/:${userData.uid}`}
+            element={<Protected Component={OtherUserProfile} />}
+          />
+          <Route path="/" element={<Protected Component={Home} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </div>

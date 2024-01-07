@@ -11,6 +11,7 @@ import { db } from "../../../firebase";
 import SkeletonPage from "./Skeleton";
 import EditPost from "../../ExtraComp/EditPost";
 import { UserDataContext } from "../../../Context/Context";
+import { Flex } from "antd";
 
 const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -106,7 +107,7 @@ const TextPost = () => {
                   <p style={{ fontSize: 11, marginTop: "-1px" }}>{a.date}</p>
                 </div>
               </div>
-              <div>
+              <div style={{ display: "flex", flexDirection: "row" }}>
                 <div onClick={() => Edit(a)}>
                   <EditPost />
                 </div>

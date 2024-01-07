@@ -30,12 +30,9 @@ const EditPost = () => {
             uid,
             "posts"
           );
-          const docRef = doc(userPostsCollectionRef, postId); // Reference to the specific document
+          const docRef = doc(userPostsCollectionRef, postId);
           await deleteDoc(docRef);
           Swal.fire("Deleted!", "Post has been deleted.", "success");
-          // setUserPosts((prevPosts) =>
-          //   prevPosts.filter((post) => post.id !== id)
-          // );
         } catch (error) {
           console.error("Error deleting document:", error);
           Swal.fire(
