@@ -7,6 +7,10 @@ export const UserDataContext = createContext();
 export function UserDataProvider({ children }) {
   const [userData, setUserData] = useState("");
   const [otherUserData, setOtherUserData] = useState("");
+  const [postText, setPostText] = useState("");
+  const [postURL, setPostURL] = useState("");
+  const [postId, setPostId] = useState(null);
+  const [onUpdate, setOnUpdate] = useState("");
 
   // const uid = localStorage.getItem("uid");
   // useEffect(() => {
@@ -31,11 +35,22 @@ export function UserDataProvider({ children }) {
   //     };
   //   }
   // }, [uid]); // No dependencies, so it runs once when the component mounts
-
+  const contextValue = {
+    userData,
+    setUserData,
+    setOtherUserData,
+    otherUserData,
+    postText,
+    setPostText,
+    postURL,
+    setPostURL,
+    postId,
+    setPostId,
+    onUpdate,
+    setOnUpdate,
+  };
   return (
-    <UserDataContext.Provider
-      value={{ userData, setUserData, setOtherUserData, otherUserData }}
-    >
+    <UserDataContext.Provider value={contextValue}>
       {children}
     </UserDataContext.Provider>
   );

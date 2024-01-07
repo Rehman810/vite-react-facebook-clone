@@ -98,17 +98,17 @@ const Navbar = () => {
         }}
       >
         <TbGridDots
-          size={25}
+          size={35}
           color="black"
           style={{ backgroundColor: "#D8DADF", borderRadius: 50, padding: 8 }}
         />
         <BiLogoMessenger
-          size={25}
+          size={35}
           color="black"
           style={{ backgroundColor: "#D8DADF", borderRadius: 50, padding: 8 }}
         />
         <BsFillBellFill
-          size={25}
+          size={35}
           color="black"
           style={{ backgroundColor: "#D8DADF", borderRadius: 50, padding: 8 }}
         />

@@ -9,10 +9,19 @@ import { PiShareFatThin } from "react-icons/pi";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import SkeletonPage from "./Skeleton";
+import EditPost from "../../ExtraComp/EditPost";
+import { UserDataContext } from "../../../Context/Context";
 
 const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { setPostId, setPostText, setOnUpdate } = useContext(UserDataContext);
+
+  const Edit = (a) => {
+    setPostId(a.id);
+    setPostText(a.text);
+    setOnUpdate(userPosts);
+  };
 
   useEffect(() => {
     const currentUserId = localStorage.getItem("uid");
@@ -98,8 +107,10 @@ const TextPost = () => {
                 </div>
               </div>
               <div>
-                <BiDotsHorizontalRounded className="post-head-icon" size={20} />
-                <RxCross2 className="post-head-icon" size={20} />
+                <div onClick={() => Edit(a)}>
+                  <EditPost />
+                </div>
+                <RxCross2 className="post-head-icon" size={35} />
               </div>
             </div>
             <p>{a.text}</p>

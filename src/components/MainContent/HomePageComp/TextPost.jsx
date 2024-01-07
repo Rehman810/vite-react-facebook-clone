@@ -125,12 +125,10 @@ const TextPost = () => {
                 </div>
               </div>
               <div>
-                {/* <BiDotsHorizontalRounded className="post-head-icon" size={20} /> */}
                 <RxCross2 className="post-head-icon" size={20} />
               </div>
             </div>
             <p>{a.text}</p>
-            {/* {console.log(a.postURL)} */}
             {a.postURL ? (
               <div>
                 <img
