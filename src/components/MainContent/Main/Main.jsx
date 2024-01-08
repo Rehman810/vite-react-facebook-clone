@@ -35,7 +35,7 @@ const Main = () => {
     <div className="main">
       <Menu />
       <HomePage />
-      <Sponsered />
+      {/* <Sponsered /> */}
     </div>
   );
 };

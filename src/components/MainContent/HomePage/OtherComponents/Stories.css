@@ -1,0 +1,114 @@
+.story-section{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .create-story{
+    background-color: white;
+    width: 20%;
+    height: 13vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s, filter 0.3s;
+  }
+  
+  .create-story:hover{
+    opacity: 0.9;
+    filter: brightness(0.9); 
+  }
+  
+  .stories{
+    background-color: #91A2A7;
+    width: 20%;
+    height: 13vw;
+    margin-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s, filter 0.3s;
+  }
+  
+  .stories:hover{
+    opacity: 0.9; 
+    filter: brightness(0.9); 
+  }
+  .add-story-icon{
+    position: relative;
+    top: -12px;
+    font-size: 50px;
+    color: blue;
+  }
+  .story-profile{
+    width: 10vw;
+    height: 10vw;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .stories-profile{
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    border: 2px solid blue;
+    position: relative;
+    top: 15px;
+    left: 10px;
+  }
+  .stories-img{
+    margin-left: 12px;
+    width: 8vw;
+    border-radius: 10px;
+    height: 9vw;
+    display: flex;
+    align-items: center;
+  }
+  .stories-span{
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    top: -15px;
+    left: 15px;
+  }
+  @media (max-width: 1100px) {
+    .add-story-icon{
+        font-size: 50px;
+        top: -5px;
+    }
+    .story-profile{
+        width: 9vw;
+        height: 10vw;
+      }
+}
+@media (max-width: 768px) {
+    .create-story{
+        width: 17%;
+        height: 17vw;
+      }
+      .story-profile{
+        width: 14vw;
+        height: 12vw;
+      }
+      .stories{
+        height: 17vw;
+      }
+    }
+    @media (max-width: 500px) {
+        .create-story{
+            width: 20%;
+            height: 22vw;
+          }
+          .story-profile{
+            width: 17vw;
+            height: 14vw;
+          }
+        .add-story-icon{
+            font-size: 20px;
+            top: -8px;
+        }
+        .stories{
+            height: 22vw;
+          }
+        }

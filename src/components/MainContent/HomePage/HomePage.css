@@ -6,6 +6,12 @@
   @media (max-width: 768px) {
     .homePage{
         width: 100%;
-        margin-left: 0;
+        margin-left: 10%;
       }
   }
+  @media (max-width: 542px) {
+    .homePage{
+      width: 100%;
+      margin-left: 10px;
+    }
+    }

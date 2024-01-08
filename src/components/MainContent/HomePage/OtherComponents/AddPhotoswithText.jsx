@@ -69,8 +69,6 @@ const AddPhotoswithText = () => {
         "posts"
       );
 
-      //////////////////////////////////
-      // const photoName = userData.FullName;
       const randomNumber = Math.floor(Math.random() * 1000);
       const photoName = randomNumber.toString();
 
@@ -117,7 +115,7 @@ const AddPhotoswithText = () => {
     <div>
       <div className="write-btn" onClick={showModal}>
         <MdPhotoLibrary color="green" size={20} />
-        <span>Photo/video</span>
+        <span className="post-txt">Photo/video</span>
       </div>
       <Modal
         open={open}

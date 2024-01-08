@@ -114,7 +114,6 @@ const TextPost = () => {
               </div>
             </div>
             <p>{a.text}</p>
-            {/* {console.log(a.postURL)} */}
             {a.postURL ? (
               <div>
                 <img

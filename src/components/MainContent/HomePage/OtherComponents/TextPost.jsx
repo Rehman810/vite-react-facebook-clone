@@ -8,6 +8,7 @@ import { PiShareFatThin } from "react-icons/pi";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import SkeletonPage from "./Skeleton";
+import "./TextPost.css";
 
 const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -45,11 +46,7 @@ const TextPost = () => {
                       ...postDoc.data(),
                     });
                   });
-
-                  // Sort all posts based on timestamp in descending order
                   allUsersPostsData.sort((a, b) => b.timestamp - a.timestamp);
-
-                  // Update state with the sorted posts from all users
                   setUserPosts(allUsersPostsData);
                   setLoading(false);
                 }
@@ -57,7 +54,6 @@ const TextPost = () => {
             });
           }
         );
-
         return () => {
           unsubscribeUsers();
         };
@@ -85,29 +81,9 @@ const TextPost = () => {
                 }}
               >
                 {a.photoURL ? (
-                  <img
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50px",
-                      marginLeft: 10,
-                      marginRight: 20,
-                    }}
-                    src={a.photoURL}
-                    alt="profile"
-                  />
+                  <img className="post-img" src={a.photoURL} alt="profile" />
                 ) : (
-                  <img
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50px",
-                      marginLeft: 10,
-                      marginRight: 20,
-                    }}
-                    src={Profile}
-                    alt="profile"
-                  />
+                  <img className="post-img" src={Profile} alt="profile" />
                 )}
                 <div
                   style={{
@@ -123,7 +99,7 @@ const TextPost = () => {
                 </div>
               </div>
               <div>
-                <RxCross2 className="post-head-icon" size={20} />
+                <RxCross2 className="post-head-icon" size={35} />
               </div>
             </div>
             <p>{a.text}</p>
@@ -139,25 +115,25 @@ const TextPost = () => {
             <div className="like-comment">
               <div>
                 <AiTwotoneLike size={20} color="blue" />
-                <span>1k likes</span>
+                <span className="post-txt">1k likes</span>
               </div>
               <div>
-                <span>1.5k comments</span> &nbsp;&nbsp;
-                <span>500 shares</span>
+                <span className="post-txt">1.5k comments</span> &nbsp;&nbsp;
+                <span className="post-txt">500 shares</span>
               </div>
             </div>
             <div className="post-btn">
               <div className="like-btn">
                 <AiOutlineLike size={20} />
-                <span>Like</span>
+                <span className="post-txt">Like</span>
               </div>
               <div className="like-btn">
                 <FaRegComment size={20} />
-                <span>Comment</span>
+                <span className="post-txt">Comment</span>
               </div>
               <div className="like-btn">
                 <PiShareFatThin size={20} />
-                <span>Share</span>
+                <span className="post-txt">Share</span>
               </div>
             </div>
           </div>

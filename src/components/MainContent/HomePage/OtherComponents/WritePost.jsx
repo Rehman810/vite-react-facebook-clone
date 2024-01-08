@@ -5,13 +5,7 @@ import { BiHappyAlt } from "react-icons/bi";
 import { UserDataContext } from "../../../../Context/Context";
 import { Button, Modal } from "antd";
 import { db, auth } from "../../../../firebase";
-import {
-  serverTimestamp,
-  collection,
-  addDoc,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import AddPhotoswithText from "./AddPhotoswithText";
 import "./WritePost.css";
 
@@ -89,41 +83,15 @@ const WritePost = () => {
       <div className="Write">
         {userData ? (
           userData.photoURL ? (
-            <img
-              src={userData.photoURL}
-              alt="profile"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50px",
-                marginLeft: 10,
-                marginRight: 20,
-              }}
-            />
+            <img src={userData.photoURL} alt="profile" className="write-img" />
           ) : (
-            <img
-              src={Profile}
-              alt="profile"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50px",
-                marginLeft: 10,
-                marginRight: 20,
-              }}
-            />
+            <img src={Profile} alt="profile" className="write-img" />
           )
         ) : (
           <img
             src={localStorage.getItem("photoURL")}
             alt="profile"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: "50px",
-              marginLeft: 10,
-              marginRight: 20,
-            }}
+            className="write-img"
           />
         )}
         <div
@@ -165,35 +133,16 @@ const WritePost = () => {
                   <img
                     src={userData.photoURL}
                     alt="profile"
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50px",
-                      marginRight: 20,
-                    }}
+                    className="write-img"
                   />
                 ) : (
-                  <img
-                    src={Profile}
-                    alt="profile"
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50px",
-                      marginRight: 20,
-                    }}
-                  />
+                  <img src={Profile} alt="profile" className="write-img" />
                 )
               ) : (
                 <img
                   src={localStorage.getItem("photoURL")}
                   alt="profile"
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50px",
-                    marginRight: 20,
-                  }}
+                  className="write-img"
                 />
               )}
               <span style={{ fontWeight: "bold" }}>
@@ -216,12 +165,12 @@ const WritePost = () => {
       <div className="write-vid-activity">
         <div className="write-btn">
           <MdVideoCameraBack color="red" size={20} />
-          <span>Live video</span>
+          <span className="post-txt">Live video</span>
         </div>
         <AddPhotoswithText />
         <div className="write-btn">
           <BiHappyAlt color="yellow" size={20} />
-          <span>Feeling/activity</span>
+          <span className="post-txt">Feeling/activity</span>
         </div>
       </div>
     </div>
