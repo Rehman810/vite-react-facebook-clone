@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import Blank from "../../../assets/blank-profile.png";
-import Profile from "../../../assets/profile.jpg";
-import Story from "../../../assets/story.png";
+import Blank from "../../../../assets/blank-profile.png";
+import Profile from "../../../../assets/profile.jpg";
+import Story from "../../../../assets/story.png";
 import { BsPlusCircleFill } from "react-icons/bs";
-import { UserDataContext } from "../../../Context/Context";
+import { UserDataContext } from "../../../../Context/Context";
 
 const Stories = () => {
   const { userData } = useContext(UserDataContext);

@@ -58,6 +58,9 @@ const Navbar = () => {
         <BsFillBellFill className="react-icons" size={40} color="black" />
         <UserNavigation />
       </div>
+      <div className="navigation">
+        <UserNavigation />
+      </div>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import Profile from "../../../assets/blank-profile.png";
+import Profile from "../../../../assets/blank-profile.png";
 import { MdPhotoLibrary } from "react-icons/md";
-import { UserDataContext } from "../../../Context/Context";
+import { UserDataContext } from "../../../../Context/Context";
 import { Button, Modal } from "antd";
-import { db, auth, storage } from "../../../firebase";
+import { db, auth, storage } from "../../../../firebase";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AiOutlinePlus } from "react-icons/ai";

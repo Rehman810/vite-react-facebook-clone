@@ -4,10 +4,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
 import Navbar from "../../Navbar/Navbar/Navbar";
 import Picture from "./Picture";
-import WritePost from "../HomePageComp/WritePost";
-import Posts from "../HomePageComp/Posts";
+import WritePost from "../HomePage/OtherComponents/WritePost";
+import Posts from "../HomePage/OtherComponents/Posts";
 import { UserDataContext } from "../../../Context/Context";
-import TextPost from "../HomePageComp/TextPostCurrentUser";
+import TextPost from "../HomePage/OtherComponents/TextPostCurrentUser";
 
 const Profile = () => {
   const { userData } = useContext(UserDataContext);

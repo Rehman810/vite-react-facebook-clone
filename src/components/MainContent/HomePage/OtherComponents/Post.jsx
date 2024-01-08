@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
-import Profile from "../../../assets/blank-profile.png";
-import Posts from "../../../assets/story.png";
+import Profile from "../../../../assets/blank-profile.png";
+import Posts from "../../../../assets/story.png";
 import { AiTwotoneLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
 import { PiShareFatThin } from "react-icons/pi";
-import { UserDataContext } from "../../../Context/Context";
+import { UserDataContext } from "../../../../Context/Context";
 
 const Post = () => {
   const { userData } = useContext(UserDataContext);

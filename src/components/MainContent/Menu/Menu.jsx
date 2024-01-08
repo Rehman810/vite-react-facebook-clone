@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Profile from "../../assets/blank-profile.png";
+import Profile from "../../../assets/blank-profile.png";
 import { FaUserFriends } from "react-icons/fa";
 import { RiMemoriesFill } from "react-icons/ri";
 import { BsSaveFill, BsCameraFill, BsCalendarEventFill } from "react-icons/bs";
@@ -7,8 +7,9 @@ import { MdGroups, MdOndemandVideo } from "react-icons/md";
 import { AiFillShop, AiFillHeart } from "react-icons/ai";
 import { VscGraph } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import { UserDataContext } from "../../Context/Context";
+import { UserDataContext } from "../../../Context/Context";
 import LoadingBar from "react-top-loading-bar";
+import "./Menu.css";
 
 const Menu = () => {
   const navigate = useNavigate();

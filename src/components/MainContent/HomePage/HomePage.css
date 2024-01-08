@@ -1,0 +1,11 @@
+.homePage{
+    width: 50%;
+    margin-top: 80px;
+    margin-left: 31%;
+  }
+  @media (max-width: 768px) {
+    .homePage{
+        width: 100%;
+        margin-left: 0;
+      }
+  }

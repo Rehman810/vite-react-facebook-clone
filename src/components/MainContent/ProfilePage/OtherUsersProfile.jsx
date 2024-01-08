@@ -4,8 +4,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
 import Navbar from "../../Navbar/Navbar/Navbar";
 import ProfileImg from "../../../assets/blank-profile.png";
-import WritePost from "../HomePageComp/WritePost";
-import Posts from "../HomePageComp/Posts";
+import WritePost from "../HomePage/OtherComponents/WritePost";
+import Posts from "../HomePage/OtherComponents/Posts";
 import { UserDataContext } from "../../../Context/Context";
 
 const OtherUserProfile = () => {

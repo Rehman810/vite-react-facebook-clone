@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import SearchIcon from "../../../assets/search.svg";
+import { IoSearchOutline } from "react-icons/io5";
 import { db } from "../../../firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { UserDataContext } from "../../../Context/Context";
@@ -60,7 +60,7 @@ const Search = () => {
   return (
     <div>
       <div className="search">
-        <img src={SearchIcon} alt="search-icon" />
+        <IoSearchOutline className="search-icon" size={25} color="black" />
         <input
           className="search-input"
           type="text"

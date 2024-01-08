@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
-import Profile from "../../../assets/blank-profile.png";
+import Profile from "../../../../assets/blank-profile.png";
 import { MdVideoCameraBack } from "react-icons/md";
-import { MdPhotoLibrary } from "react-icons/md";
 import { BiHappyAlt } from "react-icons/bi";
-import { UserDataContext } from "../../../Context/Context";
+import { UserDataContext } from "../../../../Context/Context";
 import { Button, Modal } from "antd";
-import { db, auth } from "../../../firebase";
+import { db, auth } from "../../../../firebase";
 import {
   serverTimestamp,
   collection,
@@ -14,6 +13,7 @@ import {
   doc,
 } from "firebase/firestore";
 import AddPhotoswithText from "./AddPhotoswithText";
+import "./WritePost.css";
 
 const WritePost = () => {
   const { userData } = useContext(UserDataContext);
@@ -126,7 +126,11 @@ const WritePost = () => {
             }}
           />
         )}
-        <div className="search" style={{ width: "85%" }} onClick={showModal}>
+        <div
+          className="search write-search"
+          style={{ width: "85%" }}
+          onClick={showModal}
+        >
           <input
             className="search-input"
             type="text"

@@ -1,0 +1,38 @@
+.sidebar{
+    line-height: 16.8px;
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    cursor: pointer;
+  }
+  
+  .sidebar :hover{
+    background-color: #E4E6E9;
+    border-radius: 10px;
+  }
+  
+  .side-fixed{
+    height: 700px;
+    position: fixed;
+  }
+  
+  .txt{ 
+    margin-left: 15px;
+    font-weight: bold;
+  } 
+  @media (max-width: 768px) {
+    .side-fixed{
+        display: none;
+    }
+  }

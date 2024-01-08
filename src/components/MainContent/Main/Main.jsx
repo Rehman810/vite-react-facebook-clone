@@ -1,10 +1,11 @@
-import HomePage from "./HomePage";
-import Menu from "./Menu";
-import Sponsered from "./Sponsered";
+import HomePage from "../HomePage/HomePage";
+import Menu from "../Menu/Menu";
+import Sponsered from "../Sponsered/Sponsered";
 import React, { useContext, useEffect } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase";
-import { UserDataContext } from "../../Context/Context";
+import { db } from "../../../firebase";
+import { UserDataContext } from "../../../Context/Context";
+import "./Main.css";
 
 const Main = () => {
   const uid = localStorage.getItem("uid");

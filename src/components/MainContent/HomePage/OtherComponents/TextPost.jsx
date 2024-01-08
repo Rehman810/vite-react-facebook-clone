@@ -1,57 +1,72 @@
 import React, { useContext, useState, useEffect } from "react";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
-import Profile from "../../../assets/blank-profile.png";
+import Profile from "../../../../assets/blank-profile.png";
 import { AiTwotoneLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
 import { PiShareFatThin } from "react-icons/pi";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import SkeletonPage from "./Skeleton";
-import EditPost from "../../OtherComponents/EditPost";
-import { UserDataContext } from "../../../Context/Context";
-import { Flex } from "antd";
 
 const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { setPostId, setPostText, setOnUpdate } = useContext(UserDataContext);
-
-  const Edit = (a) => {
-    setPostId(a.id);
-    setPostText(a.text);
-    setOnUpdate(userPosts);
-  };
 
   useEffect(() => {
-    const currentUserId = localStorage.getItem("uid");
-    const userPostsCollectionRef = collection(
-      db,
-      "personal-info",
-      currentUserId,
-      "posts"
-    );
-    const queryForPosts = query(
-      userPostsCollectionRef,
-      orderBy("timestamp", "desc")
-    );
+    const fetchAllUsersPosts = () => {
+      try {
+        const usersCollectionRef = collection(db, "personal-info");
+        const unsubscribeUsers = onSnapshot(
+          usersCollectionRef,
+          (querySnapshot) => {
+            const allUsersPostsData = [];
 
-    const unsubscribe = onSnapshot(queryForPosts, (querySnapshot) => {
-      const posts = [];
-      querySnapshot.forEach((doc) => {
-        posts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setUserPosts(posts);
-      setLoading(false);
-    });
+            querySnapshot.forEach((userDoc) => {
+              const userId = userDoc.id;
+              const userPostsCollectionRef = collection(
+                db,
+                "personal-info",
+                userId,
+                "posts"
+              );
+              const userQueryForPosts = query(
+                userPostsCollectionRef,
+                orderBy("timestamp", "desc")
+              );
 
-    return () => {
-      unsubscribe();
+              const unsubscribePosts = onSnapshot(
+                userQueryForPosts,
+                (userQuerySnapshot) => {
+                  userQuerySnapshot.forEach((postDoc) => {
+                    allUsersPostsData.push({
+                      userId,
+                      postId: postDoc.id,
+                      ...postDoc.data(),
+                    });
+                  });
+
+                  // Sort all posts based on timestamp in descending order
+                  allUsersPostsData.sort((a, b) => b.timestamp - a.timestamp);
+
+                  // Update state with the sorted posts from all users
+                  setUserPosts(allUsersPostsData);
+                  setLoading(false);
+                }
+              );
+            });
+          }
+        );
+
+        return () => {
+          unsubscribeUsers();
+        };
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     };
+
+    fetchAllUsersPosts();
   }, []);
 
   return (
@@ -107,15 +122,11 @@ const TextPost = () => {
                   <p style={{ fontSize: 11, marginTop: "-1px" }}>{a.date}</p>
                 </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <div onClick={() => Edit(a)}>
-                  <EditPost />
-                </div>
-                <RxCross2 className="post-head-icon" size={35} />
+              <div>
+                <RxCross2 className="post-head-icon" size={20} />
               </div>
             </div>
             <p>{a.text}</p>
-            {/* {console.log(a.postURL)} */}
             {a.postURL ? (
               <div>
                 <img
