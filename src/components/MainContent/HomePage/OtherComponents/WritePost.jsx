@@ -8,8 +8,10 @@ import { db, auth } from "../../../../firebase";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import AddPhotoswithText from "./AddPhotoswithText";
 import "./WritePost.css";
+import { useNavigate } from "react-router-dom";
 
 const WritePost = () => {
+  const navigate = useNavigate();
   const { userData } = useContext(UserDataContext);
   const [postText, setPostText] = useState();
   const [loading, setLoading] = useState(false);
@@ -78,22 +80,20 @@ const WritePost = () => {
       setPostText("");
     }
   };
+  const imageUrl = userData
+    ? userData.photoURL
+    : localStorage.getItem("photoURL");
+
   return (
     <div className="write-post">
       <div className="Write">
-        {userData ? (
-          userData.photoURL ? (
-            <img src={userData.photoURL} alt="profile" className="write-img" />
-          ) : (
-            <img src={Profile} alt="profile" className="write-img" />
-          )
-        ) : (
-          <img
-            src={localStorage.getItem("photoURL")}
-            alt="profile"
-            className="write-img"
-          />
-        )}
+        <img
+          src={imageUrl || Profile}
+          alt="profile"
+          className="write-img"
+          onClick={() => navigate(`/profilePage/:${userData.uid}`)}
+        />
+
         <div
           className="search write-search"
           style={{ width: "85%" }}
@@ -128,23 +128,11 @@ const WritePost = () => {
         >
           <div style={{ height: "15vw" }}>
             <div className="sidebar">
-              {userData ? (
-                userData.photoURL ? (
-                  <img
-                    src={userData.photoURL}
-                    alt="profile"
-                    className="write-img"
-                  />
-                ) : (
-                  <img src={Profile} alt="profile" className="write-img" />
-                )
-              ) : (
-                <img
-                  src={localStorage.getItem("photoURL")}
-                  alt="profile"
-                  className="write-img"
-                />
-              )}
+              <img
+                src={imageUrl || Profile}
+                alt="profile"
+                className="write-img"
+              />
               <span style={{ fontWeight: "bold" }}>
                 {userData
                   ? userData.FullName

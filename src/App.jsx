@@ -18,7 +18,6 @@ function App() {
         <Routes>
           <Route
             path={`/profilePage/:${userData.uid}`}
-            // path="/profilePage"
             element={<Protected Component={Profile} />}
           />
           <Route

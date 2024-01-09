@@ -33,38 +33,28 @@ const Navigation = () => {
       console.error("Error signing out:", error.message);
     }
   };
-
+  const imageUrl = userData
+    ? userData.photoURL
+    : localStorage.getItem("photoURL");
   const items = [
     {
       label: (
         <div className="navIcon">
-          {userData.photoURL ? (
-            <img
-              src={userData.photoURL}
-              alt="profile"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50px",
-                marginRight: 20,
-              }}
-            />
-          ) : (
-            <img
-              src={Profile}
-              alt="profile"
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: "50px",
-                marginRight: 20,
-              }}
-            />
-          )}
+          <img
+            src={imageUrl || Profile}
+            alt="profile"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50px",
+              marginRight: 20,
+            }}
+          />
+
           <span
             style={{ fontSize: "16px", fontWeight: "bold", marginTop: "5px" }}
           >
-            {userData.FullName}
+            {userData ? userData.FullName : localStorage.getItem("userName")}
           </span>
         </div>
       ),
@@ -126,6 +116,7 @@ const Navigation = () => {
       key: "6",
     },
   ];
+
   return (
     <>
       <LoadingBar
@@ -139,19 +130,7 @@ const Navigation = () => {
         }}
         trigger={["click"]}
       >
-        {userData ? (
-          userData.photoURL ? (
-            <img src={userData.photoURL} alt="profile" className="nav-img" />
-          ) : (
-            <img className="nav-img" src={Profile} />
-          )
-        ) : (
-          <img
-            src={localStorage.getItem("photoURL")}
-            alt="profile"
-            className="nav-img"
-          />
-        )}
+        <img src={imageUrl || Profile} alt="profile" className="nav-img" />
       </Dropdown>
     </>
   );

@@ -47,6 +47,7 @@ const TextPost = () => {
                     });
                   });
                   allUsersPostsData.sort((a, b) => b.timestamp - a.timestamp);
+                  console.log(allUsersPostsData);
                   setUserPosts(allUsersPostsData);
                   setLoading(false);
                 }

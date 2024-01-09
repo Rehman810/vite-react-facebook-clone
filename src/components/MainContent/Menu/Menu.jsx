@@ -58,7 +58,9 @@ const Menu = () => {
               }}
             />
           )}
-          <span style={{ fontWeight: "bold" }}>{userData.FullName}</span>
+          <span style={{ fontWeight: "bold" }}>
+            {userData ? userData.FullName : localStorage.getItem("userName")}
+          </span>
         </div>
         <div className="sidebar">
           <FaUserFriends size={30} />
