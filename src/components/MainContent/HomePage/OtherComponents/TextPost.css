@@ -91,10 +91,20 @@
     margin-left: 10px;
     margin-right: 20px;
 }
+.post-img2{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 36vw;
+  height: 36vw;
+}
 
 @media (max-width: 768px) {
     .Post{
         width: 90%;
+      }
+      .post-img2{
+        width: 75vw;
+        height: 75vw;
       }
 }
 @media (max-width: 542px) {
@@ -103,5 +113,10 @@
       }
       .post-txt{
         font-size: 14px;
+      }
+      .post-img2{
+        margin-left: 2vw;
+        width: 80vw;
+        height: 80vw;
       }
     }

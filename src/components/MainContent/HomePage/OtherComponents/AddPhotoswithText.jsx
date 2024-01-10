@@ -7,13 +7,18 @@ import { db, auth, storage } from "../../../../firebase";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AiOutlinePlus } from "react-icons/ai";
+import { Dropzone, FileMosaic } from "@files-ui/react";
 
 const AddPhotoswithText = () => {
+  const [files, setFiles] = useState([]);
+  const updateFiles = (e) => {
+    setFiles(e);
+  };
   const { userData } = useContext(UserDataContext);
   const [postText, setPostText] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
 
   const showModal = () => {
     setOpen(true);
@@ -29,10 +34,10 @@ const AddPhotoswithText = () => {
   const handleCancel = () => {
     setOpen(false);
   };
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-  };
+  // const handleFileChange = (e) => {
+  //   const selectedFile = e.target.files[0];
+  //   setFile(selectedFile);
+  // };
   const currentDate = new Date();
   const oneMonthLater = new Date(currentDate);
   oneMonthLater.setMonth(currentDate.getMonth() + 1);
@@ -72,13 +77,15 @@ const AddPhotoswithText = () => {
       const randomNumber = Math.floor(Math.random() * 1000);
       const photoName = randomNumber.toString();
 
-      if (!file) {
+      if (!files) {
+        console.log("No valid files selected for upload");
         return;
       }
 
       const name = photoName;
 
       try {
+        const file = files[0].file;
         const storageRef = ref(storage, name + "_" + date);
 
         const uploadTask = uploadBytesResumable(storageRef, file);
@@ -133,7 +140,7 @@ const AddPhotoswithText = () => {
           </Button>,
         ]}
       >
-        <div style={{ height: "15vw" }}>
+        <div>
           <div className="sidebar">
             {userData.photoURL ? (
               <img
@@ -167,7 +174,7 @@ const AddPhotoswithText = () => {
             onChange={(e) => setPostText(e.target.value)}
           />
           <div>
-            <label htmlFor="fileInput" className="upload">
+            {/* <label htmlFor="fileInput" className="upload">
               <AiOutlinePlus />
               <span>Upload Photo</span>
             </label>
@@ -177,7 +184,20 @@ const AddPhotoswithText = () => {
               accept="image/*"
               style={{ display: "none" }}
               onChange={handleFileChange}
-            />
+            /> */}
+            <Dropzone
+              onChange={updateFiles}
+              value={files}
+              accept="image/*"
+              maxFiles={1}
+              footer={false}
+            >
+              {files.map((file) => (
+                <>
+                  <FileMosaic {...file} key={file.id} preview />
+                </>
+              ))}
+            </Dropzone>
           </div>
         </div>
       </Modal>

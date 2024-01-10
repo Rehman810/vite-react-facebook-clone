@@ -107,7 +107,7 @@ const TextPost = () => {
                 <img
                   src={`${a.postURL}?cache=${Math.random()}`}
                   alt="post"
-                  className="post-img"
+                  className="post-img2"
                 />
               </div>
             ) : null}
