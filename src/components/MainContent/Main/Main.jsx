@@ -30,7 +30,7 @@ const Main = () => {
         unsubscribe();
       };
     }
-  }, [uid]);
+  }, [uid, setUserData]);
   return (
     <div className="main">
       <Menu />

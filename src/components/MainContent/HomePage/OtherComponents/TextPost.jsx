@@ -41,14 +41,12 @@ const TextPost = () => {
                 (userQuerySnapshot) => {
                   userQuerySnapshot.forEach((postDoc) => {
                     allUsersPostsData.push({
-                      userId,
                       postId: postDoc.id,
                       ...postDoc.data(),
                     });
                   });
                   allUsersPostsData.sort((a, b) => b.timestamp - a.timestamp);
-                  console.log(allUsersPostsData);
-                  setUserPosts(allUsersPostsData);
+                  setUserPosts(() => [...allUsersPostsData]);
                   setLoading(false);
                 }
               );

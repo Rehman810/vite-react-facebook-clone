@@ -1,41 +1,37 @@
 import React, { useState, useContext } from "react";
-import ProfileImg from "../../../assets/blank-profile.png";
+import Profile from "../../../assets/blank-profile.png";
 import { Modal } from "antd";
-import { AiOutlinePlus } from "react-icons/ai";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../../firebase";
-import {
-  addDoc,
-  doc,
-  setDoc,
-  updateDoc,
-  collection,
-  getDocs,
-} from "firebase/firestore";
+import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { UserDataContext } from "../../../Context/Context";
+import { GrUpload } from "react-icons/gr";
+import { Dropzone, FileMosaic } from "@files-ui/react";
 
 const Picture = () => {
-  const { userData } = useContext(UserDataContext);
-
-  const [file, setFile] = useState(null);
-  const uid = localStorage.getItem("uid");
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+  const [files, setFiles] = useState([]);
+  const updateFiles = (e) => {
+    setFiles(e);
   };
+
+  const { userData, setUserData } = useContext(UserDataContext);
+  const [isHovered, setIsHovered] = useState(false);
+  const uid = localStorage.getItem("uid");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
   const photoName = userData.FullName;
   const handleOk = async () => {
-    if (!file) {
+    if (!files) {
+      console.log("No valid files selected for upload");
       return;
     }
 
     const name = photoName;
 
     try {
+      const file = files[0].file;
       const date = new Date().getTime();
       const storageRef = ref(storage, name + "_" + date);
 
@@ -79,6 +75,7 @@ const Picture = () => {
                   { merge: true }
                 );
               });
+              setUserData({ ...userData, photoURL: newPhotoURL });
 
               console.log("Document field updated successfully!");
             } catch (error) {
@@ -101,34 +98,24 @@ const Picture = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const imageUrl = userData
+    ? userData.photoURL
+    : localStorage.getItem("photoURL");
 
   return (
     <div>
-      <div>
-        {userData ? (
-          userData.photoURL ? (
-            <img
-              onClick={showModal}
-              src={userData.photoURL}
-              alt="profile-img"
-              className="profilePageImg"
-            />
-          ) : (
-            <img
-              onClick={showModal}
-              src={ProfileImg}
-              alt="profile-img"
-              className="profilePageImg"
-            />
-          )
-        ) : (
-          <img
-            onClick={showModal}
-            src={localStorage.getItem("photoURL")}
-            alt="profile-img"
-            className="profilePageImg"
-          />
-        )}
+      <div
+        className="upload-cont"
+        // onMouseEnter={() => setIsHovered(true)}
+        // onMouseLeave={() => setIsHovered(false)}
+      >
+        <img
+          onClick={showModal}
+          src={imageUrl || Profile}
+          alt="profile-img"
+          className="profilePageImg"
+        />
+        {/* {isHovered && <GrUpload className="upload" />} */}
       </div>
       <Modal
         title="Choose profile picture"
@@ -137,17 +124,19 @@ const Picture = () => {
         onCancel={handleCancel}
       >
         <div>
-          <label htmlFor="fileInput" className="upload">
-            <AiOutlinePlus />
-            <span>Upload Photo</span>
-          </label>
-          <input
-            id="fileInput"
-            type="file"
+          <Dropzone
+            onChange={updateFiles}
+            value={files}
             accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
+            maxFiles={1}
+            footer={false}
+          >
+            {files.map((file) => (
+              <>
+                <FileMosaic {...file} key={file.id} preview />
+              </>
+            ))}
+          </Dropzone>
         </div>
       </Modal>
     </div>

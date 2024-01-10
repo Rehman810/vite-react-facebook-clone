@@ -70,6 +70,7 @@
 @media (max-width: 542px) {
     .write-post{
         padding: 30px;
+        width: 97%;
      }
      .search-input{
         width: 55vw;

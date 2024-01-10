@@ -7,6 +7,7 @@ import Picture from "./Picture";
 import WritePost from "../HomePage/OtherComponents/WritePost";
 import { UserDataContext } from "../../../Context/Context";
 import TextPost from "../HomePage/OtherComponents/TextPostCurrentUser";
+import "./Profile.css";
 
 const Profile = () => {
   const { userData } = useContext(UserDataContext);
