@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Banner from "../../../assets/story.png";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
 import Navbar from "../../Navbar/Navbar/Navbar";
 import ProfileImg from "../../../assets/blank-profile.png";
-import WritePost from "../HomePage/OtherComponents/WritePost";
-import Posts from "../HomePage/OtherComponents/Posts";
 import { UserDataContext } from "../../../Context/Context";
+import TextPost from "../HomePage/OtherComponents/TextPostOtherUser";
 
 const OtherUserProfile = () => {
   const { otherUserData } = useContext(UserDataContext);
@@ -26,17 +25,11 @@ const OtherUserProfile = () => {
             alignItems: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              flexDirection: "row",
-            }}
-          >
+          <div className="prof-pic-name">
             <div>
               {otherUserData.photoURL ? (
                 <img
-                  onClick={otherUserData}
+                  // onClick={otherUserData}
                   src={otherUserData.photoURL}
                   alt="profile-img"
                   className="profilePageImg"
@@ -49,59 +42,22 @@ const OtherUserProfile = () => {
                 />
               )}
             </div>
-            <span
-              style={{
-                position: "relative",
-                left: 280,
-                top: -110,
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
-              {otherUserData.FullName}
-            </span>
+            <span className="profile-name">{otherUserData.FullName}</span>
           </div>
           <div
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-between",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                width: 150,
-                backgroundColor: "#0861F2",
-                cursor: "pointer",
-                padding: 7,
-                color: "white",
-                borderRadius: 10,
-              }}
-            >
+            <div className="profile-btn">
               <AiOutlinePlus />
-              <span>Add to story</span>
+              <span className="prof-btn-text">Add to story</span>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                width: 150,
-                marginRight: 230,
-                backgroundColor: "#D8DADF",
-                cursor: "pointer",
-                padding: 7,
-                borderRadius: 10,
-              }}
-            >
+            <div className="profile-btn profile-btn2">
               <MdEdit />
-              <span>Edit Profile</span>
+              <span className="prof-btn-text">Edit Profile</span>
             </div>
           </div>
         </div>
@@ -120,8 +76,8 @@ const OtherUserProfile = () => {
           <span className="profile-btn">Friends</span>
         </div>
       </div>
-      <div style={{ width: "50%", marginLeft: "20vw" }}>
-        <Posts />
+      <div className="prof-posts">
+        <TextPost uid={otherUserData.uid} />
       </div>
     </div>
   );

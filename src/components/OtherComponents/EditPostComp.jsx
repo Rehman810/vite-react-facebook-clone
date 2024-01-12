@@ -8,7 +8,7 @@ import { Input } from "antd";
 import { CiEdit } from "react-icons/ci";
 import { UserDataContext } from "../../Context/Context";
 
-function Edit(props) {
+function Edit() {
   const { postId, postText } = useContext(UserDataContext);
   const [postTextCo, setPostText] = useState(postText);
   const [show, setShow] = useState(false);

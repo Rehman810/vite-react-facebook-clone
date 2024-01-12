@@ -5,7 +5,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../../firebase";
 import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { UserDataContext } from "../../../Context/Context";
-import { GrUpload } from "react-icons/gr";
 import { Dropzone, FileMosaic } from "@files-ui/react";
 import { FullScreen, ImagePreview } from "@files-ui/react"; // Import FullScreen and ImagePreview
 

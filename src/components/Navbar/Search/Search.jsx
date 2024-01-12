@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./Search.css";
 
 const Search = () => {
-  const { setOtherUserData } = useContext(UserDataContext);
+  const { setOtherUserData, otherUserData } = useContext(UserDataContext);
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
@@ -49,7 +49,7 @@ const Search = () => {
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
         setOtherUserData(userData);
-        navigate("/otherProfile");
+        navigate(`/otherProfile/:${otherUserData.uid}`);
       } else {
         console.log("User not found");
       }

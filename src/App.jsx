@@ -10,7 +10,7 @@ import { UserDataContext } from "./Context/Context";
 import { useContext } from "react";
 
 function App() {
-  const { userData } = useContext(UserDataContext);
+  const { userData, otherUserData } = useContext(UserDataContext);
 
   return (
     <div className="App">
@@ -21,8 +21,8 @@ function App() {
             element={<Protected Component={Profile} />}
           />
           <Route
-            path="/otherProfile"
-            // path={`/otherProfile/:${userData.uid}`}
+            // path="/otherProfile"
+            path={`/otherProfile/:${otherUserData.uid}`}
             element={<Protected Component={OtherUserProfile} />}
           />
           <Route path="/" element={<Protected Component={Home} />} />

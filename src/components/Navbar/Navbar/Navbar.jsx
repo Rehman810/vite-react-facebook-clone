@@ -31,8 +31,8 @@ const Navbar = () => {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <div className="logo-section" onClick={() => Home()}>
-        <img src={Logo} className="logo" alt="logo" />
+      <div className="logo-section">
+        <img src={Logo} className="logo" alt="logo" onClick={() => Home()} />
         <Search />
       </div>
       <div className="tabs-section">

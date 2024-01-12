@@ -6,8 +6,8 @@ import Navbar from "../../Navbar/Navbar/Navbar";
 import Picture from "./Picture";
 import { UserDataContext } from "../../../Context/Context";
 import "./Profile.css";
-import ReactCrop from "react-image-crop";
-
+import WritePost from "../HomePage/OtherComponents/WritePost";
+import TextPost from "../HomePage/OtherComponents/TextPostCurrentUser";
 const Profile = () => {
   const { userData } = useContext(UserDataContext);
   return (
@@ -25,23 +25,9 @@ const Profile = () => {
             alignItems: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              flexDirection: "row",
-            }}
-          >
+          <div className="prof-pic-name">
             <Picture />
-            <span
-              style={{
-                position: "relative",
-                left: 280,
-                top: -110,
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
+            <span className="profile-name">
               {userData ? userData.FullName : localStorage.getItem("userName")}
             </span>
           </div>
@@ -50,42 +36,15 @@ const Profile = () => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-between",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                width: 150,
-                backgroundColor: "#0861F2",
-                cursor: "pointer",
-                padding: 7,
-                color: "white",
-                borderRadius: 10,
-              }}
-            >
+            <div className="profile-btn">
               <AiOutlinePlus />
-              <span>Add to story</span>
+              <span className="prof-btn-text">Add to story</span>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                width: 150,
-                marginRight: 230,
-                backgroundColor: "#D8DADF",
-                cursor: "pointer",
-                padding: 7,
-                borderRadius: 10,
-              }}
-            >
+            <div className="profile-btn profile-btn2">
               <MdEdit />
-              <span>Edit Profile</span>
+              <span className="prof-btn-text">Edit Profile</span>
             </div>
           </div>
         </div>
@@ -98,16 +57,15 @@ const Profile = () => {
             marginLeft: 200,
           }}
         >
-          {/* <span className="profile-btn">Posts</span>
+          <span className="profile-btn">Posts</span>
           <span className="profile-btn">About</span>
           <span className="profile-btn">Photos</span>
-          <span className="profile-btn">Friends</span> */}
+          <span className="profile-btn">Friends</span>
         </div>
       </div>
-      <div style={{ width: "50%", marginLeft: "20vw" }}>
-        {/* <WritePost /> */}
-        {/* <Posts /> */}
-        {/* <TextPost /> */}
+      <div className="prof-posts">
+        <WritePost />
+        <TextPost />
       </div>
     </div>
   );
