@@ -7,28 +7,29 @@ import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { UserDataContext } from "../../../Context/Context";
 import { GrUpload } from "react-icons/gr";
 import { Dropzone, FileMosaic } from "@files-ui/react";
+import { FullScreen, ImagePreview } from "@files-ui/react"; // Import FullScreen and ImagePreview
 
 const Picture = () => {
   const [files, setFiles] = useState([]);
-  const updateFiles = (e) => {
-    setFiles(e);
-  };
-
-  const { userData, setUserData } = useContext(UserDataContext);
-  const [isHovered, setIsHovered] = useState(false);
-  const uid = localStorage.getItem("uid");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imgSrc, setImgSrc] = React.useState(undefined);
+  const handleSee = (imageSource) => {
+    setImgSrc(imageSource);
+  };
+  const { userData, setUserData } = useContext(UserDataContext);
+  const uid = localStorage.getItem("uid");
+
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const photoName = userData.FullName;
+
   const handleOk = async () => {
-    if (!files) {
+    if (!files || !files[0]) {
       console.log("No valid files selected for upload");
       return;
     }
 
-    const name = photoName;
+    const name = userData.FullName;
 
     try {
       const file = files[0].file;
@@ -54,6 +55,7 @@ const Picture = () => {
                 },
                 { merge: true }
               );
+
               const newPhotoURL = downloadURL;
 
               const userPostsRef = collection(
@@ -75,8 +77,8 @@ const Picture = () => {
                   { merge: true }
                 );
               });
-              setUserData({ ...userData, photoURL: newPhotoURL });
 
+              setUserData({ ...userData, photoURL: newPhotoURL });
               console.log("Document field updated successfully!");
             } catch (error) {
               console.error("Error updating document field:", error);
@@ -92,30 +94,27 @@ const Picture = () => {
     } catch (e) {
       console.error("Error uploading file:", e);
     }
+
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const imageUrl = userData
     ? userData.photoURL
     : localStorage.getItem("photoURL");
 
   return (
     <div>
-      <div
-        className="upload-cont"
-        // onMouseEnter={() => setIsHovered(true)}
-        // onMouseLeave={() => setIsHovered(false)}
-      >
+      <div className="upload-cont">
         <img
           onClick={showModal}
           src={imageUrl || Profile}
           alt="profile-img"
           className="profilePageImg"
         />
-        {/* {isHovered && <GrUpload className="upload" />} */}
       </div>
       <Modal
         title="Choose profile picture"
@@ -125,20 +124,26 @@ const Picture = () => {
       >
         <div>
           <Dropzone
-            onChange={updateFiles}
+            onChange={(e) => setFiles(e)}
             value={files}
             accept="image/*"
             maxFiles={1}
             footer={false}
           >
-            {files.map((file) => (
-              <>
-                <FileMosaic {...file} key={file.id} preview />
-              </>
+            {files.map((file, index) => (
+              <FileMosaic {...file} key={index} preview onSee={handleSee} />
             ))}
           </Dropzone>
         </div>
       </Modal>
+
+      {/* FullScreen component for preview */}
+      <FullScreen
+        open={imgSrc !== undefined}
+        onClose={() => setImgSrc(undefined)}
+      >
+        <ImagePreview src={imgSrc} />
+      </FullScreen>
     </div>
   );
 };

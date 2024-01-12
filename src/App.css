@@ -15,13 +15,7 @@ body{
     display: flex;
     align-items: flex-start;
   }
-  
-  .banner{
-    width: 70%;
-    height: 30vw;
-    margin-left: 15vw;
-    border-radius: 10px;
-  }
+
   
   
   
@@ -33,14 +27,7 @@ body{
     cursor: pointer;
   }
   
-  .profile-page{
-    background-color: white;
-  }
   
-  .profile-btn{
-    color: #646669;
-    margin-bottom: 15px;
-  }
   .search-results{
     display: flex;
     flex-direction: column;

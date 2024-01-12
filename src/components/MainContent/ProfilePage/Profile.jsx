@@ -4,10 +4,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
 import Navbar from "../../Navbar/Navbar/Navbar";
 import Picture from "./Picture";
-import WritePost from "../HomePage/OtherComponents/WritePost";
 import { UserDataContext } from "../../../Context/Context";
-import TextPost from "../HomePage/OtherComponents/TextPostCurrentUser";
 import "./Profile.css";
+import ReactCrop from "react-image-crop";
 
 const Profile = () => {
   const { userData } = useContext(UserDataContext);
@@ -99,16 +98,16 @@ const Profile = () => {
             marginLeft: 200,
           }}
         >
-          <span className="profile-btn">Posts</span>
+          {/* <span className="profile-btn">Posts</span>
           <span className="profile-btn">About</span>
           <span className="profile-btn">Photos</span>
-          <span className="profile-btn">Friends</span>
+          <span className="profile-btn">Friends</span> */}
         </div>
       </div>
       <div style={{ width: "50%", marginLeft: "20vw" }}>
-        <WritePost />
+        {/* <WritePost /> */}
         {/* <Posts /> */}
-        <TextPost />
+        {/* <TextPost /> */}
       </div>
     </div>
   );

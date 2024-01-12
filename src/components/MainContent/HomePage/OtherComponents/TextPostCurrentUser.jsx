@@ -11,6 +11,7 @@ import SkeletonPage from "./Skeleton";
 import EditPost from "../../../OtherComponents/EditPost";
 import { UserDataContext } from "../../../../Context/Context";
 import { Flex } from "antd";
+import "./TextPost.css";
 
 const TextPost = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -69,29 +70,9 @@ const TextPost = () => {
                 }}
               >
                 {a.photoURL ? (
-                  <img
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50px",
-                      marginLeft: 10,
-                      marginRight: 20,
-                    }}
-                    src={a.photoURL}
-                    alt="profile"
-                  />
+                  <img className="post-img" src={a.photoURL} alt="profile" />
                 ) : (
-                  <img
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50px",
-                      marginLeft: 10,
-                      marginRight: 20,
-                    }}
-                    src={Profile}
-                    alt="profile"
-                  />
+                  <img className="post-img" src={Profile} alt="profile" />
                 )}
                 <div
                   style={{
